@@ -1,0 +1,14 @@
+{
+  "v": 4,
+  "updated": "2026-11-19",
+  "status": "active",
+  "goal": "Монорепо ТО: GitHub Pages + SourceCraft",
+  "next": "Заменить TODO контакта «заказать такое же» в README",
+  "blockers": [],
+  "hot_files": [
+    "README.md",
+    "docs/CURSOR_PLAYBOOK.md",
+    "brands/exeed-rx/index.html",
+    "index.html"
+  ]
+}

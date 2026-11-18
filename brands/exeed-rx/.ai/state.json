@@ -1,0 +1,17 @@
+{
+  "v": 4,
+  "updated": "2026-11-19",
+  "status": "active",
+  "goal": "EXEED RX в монорепо reglament-to + Pages",
+  "next": "Передние тормоза (~4500 работ) на следующем ТО",
+  "blockers": [
+    "КПП не подтверждена диагностикой (ориентир 7DCT по году РФ)"
+  ],
+  "hot_files": [
+    "brands/exeed-rx/index.html",
+    "brands/exeed-rx/docs/message_max.md",
+    "brands/exeed-rx/assets/img/",
+    "docs/CURSOR_PLAYBOOK.md",
+    "README.md"
+  ]
+}
