@@ -178,16 +178,53 @@
     btn.addEventListener("click", () => {
       const n = Number(btn.getAttribute("data-to"));
       renderTo(n);
-      const detail = document.getElementById("detail");
-      if (detail && window.matchMedia("(max-width: 899px)").matches) {
-        detail.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Keep selection in view without yanking the page (esp. mobile sticky header).
+      if (window.matchMedia("(max-width: 899px)").matches) {
+        btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
       }
     });
   });
 
   renderTo(4);
 
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  // Touch: tap tip to toggle; second tap / outside / Escape closes. Avoids hover-only UX.
+  const coarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+  if (coarse) {
+    let openTip = null;
+    const closeTip = () => {
+      if (openTip) {
+        openTip.classList.remove("is-open");
+        openTip = null;
+      }
+    };
+    document.addEventListener(
+      "click",
+      (e) => {
+        const tip = e.target.closest?.(".tip");
+        if (tip) {
+          e.preventDefault();
+          if (openTip === tip) {
+            closeTip();
+            return;
+          }
+          closeTip();
+          tip.classList.add("is-open");
+          openTip = tip;
+          return;
+        }
+        closeTip();
+      },
+      true
+    );
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeTip();
+    });
+  }
+
+  // Skip scroll-reveal on narrow viewports — opacity/transform pop feels like layout jumping.
+  const narrow = window.matchMedia("(max-width: 767px)").matches;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion && !narrow) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
